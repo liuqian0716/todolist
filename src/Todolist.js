@@ -7,7 +7,7 @@ class Todolist extends Component {
     super(props);
     this.state = {
       inputValue: '',
-      list: ['学习React','学习英语']
+      list: []
     }
     this.handlerInput = this.handlerInput.bind(this);
     this.submitBtn = this.submitBtn.bind(this);
@@ -30,7 +30,7 @@ class Todolist extends Component {
           />
           <button onClick={this.submitBtn}>提交</button>
         </div>
-        <ul>
+        <ul ref={(ul) => {this.ul = ul}}>
           {this.getTodoItem()}
         </ul>
       </div>
@@ -46,10 +46,14 @@ class Todolist extends Component {
     // })
   }
   submitBtn () {
+    // setState是一个异步函数，第二个参数是第一个参数成功执行之后去执行的函数，ref为获取dom元素用的
     this.setState((prevState)=>({
       list: [...prevState.list,prevState.inputValue],
       inputValue: ''
-    }))
+    }),()=>{
+      console.log(this.ul.querySelectorAll('div').length)
+    })
+    
     // this.setState({
     //   list: [...this.state.list,this.state.inputValue],
     //   inputValue: ''

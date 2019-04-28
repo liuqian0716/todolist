@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 class Todoitem extends Component {
   constructor (props) {
@@ -7,10 +8,10 @@ class Todoitem extends Component {
   }
 
   render () {
-    const {item} = this.props;//解构赋值
+    const {item, test} = this.props;//解构赋值
     return (
       <div onClick={this.handleDetele}>
-        {item}
+        {test} - {item}
       </div>
     )
   }
@@ -18,5 +19,14 @@ class Todoitem extends Component {
     const {deleteItem,i} = this.props;
     deleteItem(i)
   }
+}
+Todoitem.propTypes = {
+  test: PropTypes.string.isRequired,
+  item: PropTypes.oneOfType([PropTypes.number,PropTypes.string]),
+  deleteItem: PropTypes.func,
+  i: PropTypes.number
+}
+Todoitem.defaultProps = {
+  test: 'hello world'
 }
 export default Todoitem;
